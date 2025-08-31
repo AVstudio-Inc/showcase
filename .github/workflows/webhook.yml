@@ -1,6 +1,17 @@
-- name: Send webhook notification
-  run: |
-    curl -X POST \
-      -H "Content-Type: application/json" \
-      -d '{"event":"push","repo":"${{ github.repository }}","commit":"${{ github.sha }}"}' \
-      "${{ vars.WEBHOOK_URL }}"
+name: Notify External Webhook
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send webhook notification
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -d '{"event":"push","repo":"${{ github.repository }}","commit":"${{ github.sha }}"}' \
+            "${{ vars.WEBHOOK_URL }}"
