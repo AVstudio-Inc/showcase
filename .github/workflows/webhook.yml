@@ -1,0 +1,6 @@
+- name: Send webhook notification
+  run: |
+    curl -X POST \
+      -H "Content-Type: application/json" \
+      -d '{"event":"push","repo":"${{ github.repository }}","commit":"${{ github.sha }}"}' \
+      "${{ vars.WEBHOOK_URL }}"
